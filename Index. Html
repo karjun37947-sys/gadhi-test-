@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GADHI TEST 😂💗</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;display:grid;place-items:center;
+ background:radial-gradient(circle at top,#62256d,#170d2b 70%);
+ color:white;font-family:system-ui,sans-serif;padding:16px;overflow:hidden
+}
+.card{
+ width:100%;max-width:420px;text-align:center;padding:28px 20px;
+ border:1px solid #ffffff30;border-radius:28px;
+ background:#ffffff12;box-shadow:0 15px 60px #0005
+}
+.emoji{font-size:65px;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}
+h1{color:#ff8bd7;font-size:35px;margin:5px}
+p{color:#e5ccef}
+.question{font-size:24px;font-weight:850;color:white}
+button{
+ width:100%;max-width:280px;padding:15px;margin:7px auto;
+ display:block;border:0;border-radius:14px;font-size:16px;
+ font-weight:800;cursor:pointer;touch-action:manipulation
+}
+.yes{background:linear-gradient(90deg,#ff8bd7,#ffc1e9);color:#35102e}
+.no{background:#7950a9;color:white;border:1px solid #ffffff40}
+#no{position:relative}
+#msg{color:#ff9ddd;min-height:24px;font-weight:bold}
+#result{display:none}
+</style>
+</head>
+<body>
+<div class="card">
+ <div class="emoji" id="emoji">🫏</div>
+ <h1>GADHI TEST</h1>
+ <p>Madam, apna sach batao 😂💗</p>
+
+ <section id="game">
+  <p class="question" id="q">Are you gadhi? 🫏</p>
+  <button class="yes" id="yes">YES, main gadhi hoon 🙈</button>
+  <button class="no" id="no">NO, bilkul nahi 😎</button>
+  <p id="msg">Sach bolna, website dekh rahi hai 👀</p>
+ </section>
+
+ <section id="result">
+  <div class="emoji">🤣💗🎉</div>
+  <h2 style="color:#ff8bd7">PRANK HO GAYA!</h2>
+  <p>Tum toh badi smart ban rahi thi 😂<br>
+  Par website tumse bhi zyada shaitaan hai! 😈</p>
+  <button class="yes" onclick="restart()">Dobara Khelo 🔄</button>
+ </section>
+</div>
+
+<script>
+let step=0,count=0;
+const q=document.getElementById('q');
+const yes=document.getElementById('yes');
+const no=document.getElementById('no');
+const msg=document.getElementById('msg');
+const emoji=document.getElementById('emoji');
+
+function dodge(){
+ count++;
+ no.style.position='fixed';
+ no.style.width='220px';
+ no.style.maxWidth='65vw';
+ const w=no.offsetWidth,h=no.offsetHeight;
+ const x=Math.random()*Math.max(1,innerWidth-w-20)+10;
+ const y=Math.random()*Math.max(1,innerHeight-h-20)+10;
+ no.style.left=x+'px';
+ no.style.top=y+'px';
+ msg.textContent=['Pakad ke dikhao 😂','Arre, phir bhaag gaya! 🏃','NO bolna mana hai kya? 🤣','Button bhi tumse darta hai 😭'][count%4];
+}
+no.addEventListener('pointerenter',e=>{
+ if(e.pointerType==='mouse')dodge();
+});
+no.addEventListener('touchstart',e=>{
+ e.preventDefault();dodge();
+},{passive:false});
+no.addEventListener('click',e=>{
+ e.preventDefault();dodge();
+});
+
+yes.onclick=()=>{
+ if(step===0){
+  step=1;
+  emoji.textContent='🧠';
+  q.textContent='Tum half dimag ki ho ya full? 🧠';
+  yes.textContent='HALF DIMAG 😂';
+  no.textContent='FULL DIMAG 😎';
+  msg.textContent='Soch samajh ke jawab do 😏';
+  count=0;
+  no.style.position='relative';
+  no.style.left='';no.style.top='';no.style.width='';
+ }else{
+  document.getElementById('game').style.display='none';
+  document.getElementById('result').style.display='block';
+  no.style.position='relative';no.style.left='';no.style.top='';
+ }
+};
+function restart(){
+ step=0;count=0;
+ document.getElementById('result').style.display='none';
+ document.getElementById('game').style.display='block';
+ emoji.textContent='🫏';
+ q.textContent='Are you gadhi? 🫏';
+ yes.textContent='YES, main gadhi hoon 🙈';
+ no.textContent='NO, bilkul nahi 😎';
+ no.style.position='relative';no.style.left='';no.style.top='';
+ no.style.width='';
+ msg.textContent='Sach bolna, website dekh rahi hai 👀';
+}
+</script>
+</body>
+</html>
